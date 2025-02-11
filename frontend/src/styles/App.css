@@ -1,20 +1,146 @@
+/* General styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
+#root {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.app-container {
+    width: 100vw;
+    height: 100%;
+    margin-top: 60px;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.expanded-container {
+    width: 100vw;
+    height: 100%;
+    padding: 50px;
+}
+
+.task-manager-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+.task-input, .task-list {
+    width: 100%;
+    max-width: 100%;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-.card {
-    transition: 0.3s;
+.task-input {
+    background: white;
 }
 
-.card:hover {
-    transform: scale(1.02);
+.task-list {
+    background: white;
+}
+
+/* Form input labels */
+.task-input label, .task-list label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Text areas for inputs */
+textarea {
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .expanded-container {
+        padding: 40px;
+    }
+    .task-input, .task-list {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .expanded-container {
+        padding: 30px;
+    }
+    .task-input, .task-list {
+        max-width: 100%;
+    }
+}
+
+/* Dark Mode Styling */
+.dark-mode {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.dark-mode .app-container {
+    background: #2c2c2c;
+    color: white;
+}
+
+.dark-mode .navbar {
+    background-color: #222 !important;
+}
+
+.dark-mode .custom-button {
+    background-color: #ff6b6b;
+}
+
+.dark-mode .custom-button:hover {
+    background-color: #e63946;
+}
+
+/* New styles for light/dark mode text */
+.light-text {
+    color: black !important;
+}
+
+.dark-text {
+    color: white !important;
 }

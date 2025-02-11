@@ -1,29 +1,63 @@
 import React, { useEffect } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import TaskList from './components/TaskList';
-import { Button, Container } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTasks, toggleDarkMode } from './redux/taskSlice';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { createSelector } from '@reduxjs/toolkit';
+import { Container, Button, Navbar, Nav, Form } from 'react-bootstrap';
+import { logout } from './redux/authSlice';
+import { toggleDarkMode } from './redux/taskSlice';
+import Auth from './components/Auth';
+import TaskManager from './components/TaskManager';
+import './styles/App.css';
+
+// Memoized selector
+const selectAuth = createSelector(
+    (state) => state.auth,
+    (auth) => ({ token: auth?.token || null, user: auth?.user || {} })
+);
+
+const selectDarkMode = (state) => state.tasks.darkMode;
 
 const App = () => {
+    const { token, user } = useSelector(selectAuth);
+    const darkMode = useSelector(selectDarkMode);
     const dispatch = useDispatch();
-    const { tasks, darkMode } = useSelector(state => state.tasks);
+    const navigate = useNavigate();
 
+    // Redirect to login if logged out
     useEffect(() => {
-        dispatch(fetchTasks());
-    }, [dispatch]);
+        if (!token) navigate('/');
+    }, [token, navigate]);
 
     return (
-        <DndProvider backend={HTML5Backend}>
-            <Container className={darkMode ? 'bg-dark text-white p-4' : 'bg-light p-4'}>
-                <Button variant={darkMode ? 'light' : 'dark'} onClick={() => dispatch(toggleDarkMode())} className="mb-3">
-                    Toggle Dark Mode
-                </Button>
-                <TaskList tasks={tasks} />
+        <Router>
+            <Navbar bg={darkMode ? 'dark' : 'light'} variant={darkMode ? 'dark' : 'light'} expand="lg" fixed="top" className="mb-4">
+                <Container>
+                    <Navbar.Brand href="/">Task Manager</Navbar.Brand>
+                    <Nav className="ms-auto d-flex align-items-center">
+                        <Form.Check
+                            type="switch"
+                            id="dark-mode-toggle"
+                            label={darkMode ? 'Light Mode' : 'Dark Mode'}
+                            checked={darkMode}
+                            onChange={() => dispatch(toggleDarkMode())}
+                            className="me-3"
+                        />
+                        {token && <span className="user-info me-3">{user?.email}</span>}
+                        {token && (
+                            <Button className="custom-button" onClick={() => dispatch(logout())}>
+                                Logout
+                            </Button>
+                        )}
+                    </Nav>
+                </Container>
+            </Navbar>
+            <Container className="app-container">
+                <Routes>
+                    <Route path="/" element={<Auth />} />
+                    <Route path="/tasks" element={token ? <TaskManager /> : <Navigate to="/" />} />
+                </Routes>
             </Container>
-        </DndProvider>
+        </Router>
     );
 };
 

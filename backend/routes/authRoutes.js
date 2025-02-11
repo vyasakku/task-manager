@@ -13,13 +13,20 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+    console.log('Login request received'); // 🔥 Debugging log
+
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(400).json({ message: 'Invalid credentials' });
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
+
+    // Send user data along with the token
+    res.json({
+        token,
+        user: { email: user.email, id: user._id }, // Add user details here
+    });
 });
 
 module.exports = router;
