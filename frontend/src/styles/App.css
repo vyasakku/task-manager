@@ -61,6 +61,19 @@ body {
     box-sizing: border-box;
 }
 
+.task-list-container {
+    max-height: 60vh; /* Adjust as needed */
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE & Edge */
+    width: 100%; /* Full width */
+    max-width: 100%; /* Prevent any max-width restrictions */
+}
+
+.task-list-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
 .task-input, .task-list {
     width: 100%;
     max-width: 100%;
@@ -310,4 +323,19 @@ textarea {
 .dark-mode {
     background-color: #121212 !important;
     color: white !important;
+}
+
+.toggle-button {
+    color: #0d6efd !important;  /* Keep text blue */
+    background: transparent !important;
+    border: none !important;
+    transition: scale 0.5s ease-out !important;
+}
+
+.toggle-button:hover,
+.toggle-button:active {
+    background: transparent !important; /* Prevent Bootstrap hover effect */
+    color: #0d6efd !important;  /* Keep text blue */
+    box-shadow: none !important;  /* Remove Bootstrap button shadow */
+    scale: 1.2;
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTasks, addTask, deleteTask } from '../redux/taskSlice';
-import { Container, Form, Button, ListGroup } from 'react-bootstrap';
+import { fetchTasks, addTask } from '../redux/taskSlice';
+import { Container, Form, Button } from 'react-bootstrap';
+import TaskList from './TaskList';
 
 const TaskManager = () => {
     const dispatch = useDispatch();
@@ -46,23 +47,7 @@ const TaskManager = () => {
             </Form>
             {loading && <p>Loading tasks...</p>}
             {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-            {!loading && !error && tasks.length === 0 && <p>No tasks available.</p>}
-            <ListGroup>
-                {tasks.map(task => (
-                    <ListGroup.Item 
-                        key={task._id} 
-                        className={`d-flex justify-content-between align-items-center ${darkMode ? "bg-dark text-white" : ""}`}
-                    >
-                        <div>
-                            <strong>{task.title}</strong>
-                            <p className="mb-0 text-muted">{task.description}</p>
-                        </div>
-                        <Button variant="danger" size="sm" onClick={() => dispatch(deleteTask(task._id))}>
-                            Delete
-                        </Button>
-                    </ListGroup.Item>
-                ))}
-            </ListGroup>
+            {!loading && !error && <TaskList tasks={tasks} />}
         </Container>
     );
 };
