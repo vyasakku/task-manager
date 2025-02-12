@@ -1,64 +1,42 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { registerUser, loginUser } from '../redux/authSlice';
-import { Form, Button, Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/authSlice";
 
 const Auth = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [isRegistering, setIsRegistering] = useState(false);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const darkMode = useSelector((state) => state.tasks.darkMode);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { error } = useSelector((state) => state.auth);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const action = isRegistering ? registerUser : loginUser;
-        dispatch(action({ email, password })).then((result) => {
-            if (result.meta.requestStatus === 'fulfilled') {
-                navigate('/tasks');
-            }
-        });
+    const handleLogin = (e) => {
+        e.preventDefault(); // Prevent form refresh
+        dispatch(loginUser({ email, password }));
     };
 
     return (
-        <Container className={`mt-5 ${darkMode ? 'dark-mode' : ''}`}>
-            <h2 className={`title ${darkMode ? 'dark-mode' : ''}`}>
-                {isRegistering ? 'Register' : 'Login'}
-            </h2>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group>
-                    <Form.Label className={`label ${darkMode ? 'dark-mode' : ''}`}>Email address</Form.Label>
-                    <Form.Control 
+        <div className="auth-container">
+            <div className="auth-card">
+                <h2 className="auth-title">Login</h2>
+                {error && <p className="error-message">{error}</p>}
+                <form className="auth-form" onSubmit={handleLogin}>
+                    <input 
                         type="email" 
-                        placeholder="Enter email" 
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
+                        placeholder="Email" 
                         required 
-                        className={darkMode ? 'dark-mode' : ''}
+                        value={email} 
+                        onChange={(e) => setEmail(e.target.value)}
                     />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label className={`label ${darkMode ? 'dark-mode' : ''}`}>Password</Form.Label>
-                    <Form.Control 
+                    <input 
                         type="password" 
                         placeholder="Password" 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
                         required 
-                        className={darkMode ? 'dark-mode' : ''}
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)}
                     />
-                </Form.Group>
-                <Button type="submit" className={`mt-3 custom-button ${darkMode ? 'dark-mode' : ''}`}>
-                    {isRegistering ? 'Register' : 'Login'}
-                </Button>
-            </Form>
-            <Button variant="link" className={`mt-2 ${darkMode ? 'dark-mode' : ''}`} onClick={() => setIsRegistering(!isRegistering)}>
-                {isRegistering ? 'Already have an account? Login' : 'Don’t have an account? Register'}
-            </Button>
-        </Container>
+                    <button className="auth-button" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
     );
 };
 

@@ -144,3 +144,170 @@ textarea {
 .dark-text {
     color: white !important;
 }
+
+/* Auth Page Styles */
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f9fa !important; /* Light background */
+}
+
+.auth-card {
+    width: 100% !important;
+    max-width: 400px !important;
+    padding: 20px !important;
+    border-radius: 8px !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+    background-color: white !important;
+}
+
+.auth-title {
+    text-align: center !important;
+    font-size: 24px !important;
+    font-weight: bold !important;
+    margin-bottom: 20px !important;
+}
+
+.auth-form input {
+    width: 100% !important;
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+}
+
+.auth-button {
+    width: 100% !important;
+    padding: 10px !important;
+    background-color: #007bff !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+}
+
+.auth-button:hover {
+    background-color: #0056b3 !important;
+}
+
+/* Fix for Error Messages */
+.error-message {
+    color: red !important;
+    text-align: center !important;
+    margin-bottom: 10px !important;
+}
+
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f9fa !important;
+}
+
+.auth-card {
+    width: 100% !important;
+    max-width: 400px !important;
+    padding: 20px !important;
+    border-radius: 8px !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+    background-color: white !important;
+}
+.dark-mode .app-container,
+.dark-mode .task-manager-container,
+.dark-mode .task-input,
+.dark-mode .task-list {
+    background-color: #2c2c2c;
+    color: white;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .task-input label,
+.dark-mode .task-list label {
+    color: white;
+}
+
+.dark-mode textarea,
+.dark-mode input {
+    background-color: #444;
+    color: white;
+    border: 1px solid #666;
+}
+.dark-mode .auth-container {
+    background-color: #1e1e1e !important;
+}
+
+.dark-mode .auth-card {
+    background-color: #2c2c2c !important;
+    color: white !important;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-mode .auth-title {
+    color: white !important;
+}
+
+.dark-mode .auth-form input {
+    background-color: #444 !important;
+    color: white !important;
+    border: 1px solid #666 !important;
+}
+
+.dark-mode .auth-button {
+    background-color: #ff6b6b !important;
+}
+
+.dark-mode .auth-button:hover {
+    background-color: #e63946 !important;
+}
+
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh; /* Reduced height */
+    background-color: #f8f9fa;
+    border-radius: 12px; /* Rounded edges */
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.auth-card {
+    width: 100% !important;
+    max-width: 400px !important;
+    padding: 20px !important;
+    border-radius: 12px !important; /* Rounded edges */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+    background-color: white !important;
+}
+
+/* Dark mode adjustments */
+.dark-mode .auth-container {
+    background-color: #1e1e1e !important;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Softer shadow */
+}
+
+.dark-mode .auth-card {
+    background-color: #2c2c2c !important;
+    color: white;
+}
+#root {
+    min-height: 100vh; /* Ensures it stretches to full viewport height */
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centers content */
+    background-color: #f4f4f4;
+    transition: background-color 0.3s ease-in-out;
+    overflow: hidden; /* Prevents unwanted scroll issues */
+}
+.dark-mode {
+    background-color: #121212 !important;
+    color: white !important;
+}
