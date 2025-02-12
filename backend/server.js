@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const path = require('path');  // Add path module to serve frontend build
+const path = require('path'); // Required for serving frontend build
 const authRoutes = require('./routes/authRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const { verifyToken } = require('./middleware/authMiddleware');
@@ -23,17 +23,15 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', verifyToken, taskRoutes);
 
-// Serve the React frontend in production
+// ✅ Correct frontend build path for Render
 if (process.env.NODE_ENV === 'production') {
-    // Serve the static files from the frontend build directory
-    app.use(express.static(path.join(__dirname, 'frontend/build')));
+    app.use(express.static(path.join(__dirname, '../frontend/build'))); // Fix path
 
-    // Handle all routes and send back index.html
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+        res.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html')); // Fix path
     });
 }
 
-// Start server
+// ✅ Ensure the server picks the correct PORT on Render
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
