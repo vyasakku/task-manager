@@ -19,7 +19,7 @@ const seedData = async () => {
 
         // Create a test user
         const hashedPassword = await bcrypt.hash('password123', 10);
-        const user = await User.create({ email: 'testuser@example.com', password: hashedPassword });
+        const user = await User.create({ email: 'user@email.com', password: hashedPassword });
 
         // Create dummy tasks
         const tasks = [

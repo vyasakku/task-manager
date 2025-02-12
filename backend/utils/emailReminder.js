@@ -15,10 +15,8 @@ const sendReminderEmail = (email, task) => {
         subject: 'Task Reminder',
         text: `Don't forget to complete your task: ${task.title}`,
     };
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) console.error(error);
-        else console.log(`Reminder sent: ${info.response}`);
-    });
+
+    return transporter.sendMail(mailOptions);
 };
 
 module.exports = sendReminderEmail;
