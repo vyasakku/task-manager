@@ -23,7 +23,6 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', verifyToken, taskRoutes);
 
-// ✅ Correct frontend build path for Render
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../frontend/build'))); // Fix path
 
@@ -32,6 +31,5 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-// ✅ Ensure the server picks the correct PORT on Render
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
